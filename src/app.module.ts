@@ -1,21 +1,22 @@
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
-
-export const { ObserveModule, ObserveInstrument } = createObserveModule();
+import { HealthModule } from './health/health.module.js';
+import { BuildingsModule } from './buildings/buildings.module.js';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Building } from './buildings/entities/building.entity.js';
 
 @Module({
   imports: [
-    // Distributed tracing, auto-correlated logs, request/job metrics, error
-    // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
-    // ObserveModule.forRoot({
-    //   appKey: 'YOUR_APP_KEY',
-    //   appSecret: 'YOUR_APP_SECRET',
-    //   serviceId: 'mon_energy_api',
-    // }),
+    TypeOrmModule.forRoot({
+      type: 'better-sqlite3',
+      database: 'db.sqlite',
+      entities: [Building],
+      synchronize: true,
+    }),
+
+    HealthModule,
+    BuildingsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
