@@ -3,6 +3,7 @@ import { HealthModule } from './health/health.module.js';
 import { BuildingsModule } from './buildings/buildings.module.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Building } from './buildings/entities/building.entity.js';
+import { RoomsModule } from './rooms/rooms.module.js';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { Building } from './buildings/entities/building.entity.js';
 
     HealthModule,
     BuildingsModule,
+    RoomsModule,
   ],
   controllers: [],
   providers: [],
